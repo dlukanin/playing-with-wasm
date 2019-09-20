@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="button">Click me</button>
+    <div id="content">
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    (async () => {
+        const response = await fetch('./wasm-module/build/optimized.wasm');
+        const buffer = await response.arrayBuffer();
+        const module = await WebAssembly.compile(buffer);
+
+        const instance = await WebAssembly.instantiate(
+            module,
+            {
+                env: {
+                    abort(msg, file, line, column) {
+                        console.error("abort called at main.ts:" + line + ":" + column);
+                    },
+                    addNewDiv(val) {
+                        document.getElementById('content').innerHTML = document.getElementById('content').innerHTML + ('<div><h1>' + val + '</h1></div>')
+                    }
+                }
+            }
+        );
+
+        document.getElementById('button').addEventListener('click', () => {
+            instance.exports.add();
+        })
+    })();
+</script>
+</html>

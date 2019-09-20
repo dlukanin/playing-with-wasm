@@ -7,8 +7,9 @@
  (type $FUNCSIG$ii (func (param i32) (result i32)))
  (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
+ (type $FUNCSIG$vd (func (param f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "env" "logi" (func $assembly/index/logi (param i32)))
+ (import "env" "addNewDiv" (func $assembly/index/addNewDiv (param f64)))
  (memory $0 1)
  (data (i32.const 8) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 56) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
@@ -3202,12 +3203,9 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $assembly/index/add (; 28 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  i32.const 123
-  call $assembly/index/logi
-  local.get $0
-  local.get $1
-  i32.add
+ (func $assembly/index/add (; 28 ;) (type $FUNCSIG$v)
+  f64.const 123
+  call $assembly/index/addNewDiv
  )
  (func $~lib/rt/pure/__visit (; 29 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
